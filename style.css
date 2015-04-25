@@ -1,0 +1,19 @@
+*{margin:0;padding:0;}
+body{padding-right:64px;}
+aside{background:rgba(0,0,0,.8);color:#FFF;position:fixed;padding:5px;border-radius:5px;box-shadow: 0 0 4px #000;top:0;left:0;}
+legend{font-size:large;font-family:sans-serif;display:block;}
+aside .close{position:absolute;top:0;right:0;}
+input[type='file']{width:91px;}/*lower value crash chromium*/
+#canvas{padding-right: 150px;}
+.titles_container{position:fixed;overflow-y:scroll;overflow-x:hidden;top:0;bottom:0;box-shadow:0 0 4px 1px #000;background:rgba(0,0,0,0.9);}
+.titles_container{left:100%;}
+.titles_container:hover{right:0;}
+#titles{max-width: 128px;display: block;line-height:0;}
+#titles>*:hover{}
+.aside_open{position:fixed;left:50%;top:0;}
+.main .conf{position:fixed;bottom:0;left:0;}
+aside form{background:rgba(0,0,0,.5);box-shadow:0 0 5px #000 inset;padding:5px;margin:4px;border-radius:3px;}
+
+#ta{line-height:0;position:absolute;box-shadow:1px 1px 4px #000;background:rgba(255,255,255,.2);}
+#ta input{border:none;text-align:center;background:none;box-shadow: 0 0 1px 0 inset;
+text-shadow:-1px  1px 1px #FFF,1px -1px 1px #FFF,1px  1px 1px #FFF,-1px -1px 1px #FFF;}
