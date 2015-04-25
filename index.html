@@ -1,11 +1,11 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="utf-8"/>
+	<meta charset="utf-8"/>
+	<title>TitleMap Creator</title>
 	<script>
 		$=function(sel,base){return (base||document).querySelector(sel)};
 		$$=function(sel,base){return [].slice.call((base||document).querySelectorAll(sel))};
-		El=function(name,attr){var el=document.createElement(name);for(var i in attr)el.setAttribute(i,attr[i]);return el;}
 	</script>
 	<script src="TitleMap.js"></script>
 	<script src="TitleMap.utils.js"></script>
@@ -13,49 +13,36 @@
 	<link rel="stylesheet" href="style.css"></style>
 </head>
 <body onload="P=new TitleMap()">
-<button class="aside_open" onclick="$('aside').hidden=false;">File</button>
 
-<aside _hidden><button class="close" onclick="$('aside').hidden=true;">&times;</button>
-<form onsubmit="var e=this.elements;try{
-	P.fromImageFile(+e.size.value,e.file.files[0],P.showTitles);
-	}catch(e){console.error(e)};return false;">
-	<legend><input type="submit" value="Load"/> from image dump 
-	<select onchange="if(this.value)location.href=this.value">
-		<option value="">Examples List</option>
-		<option value="http://i.imgur.com/3qppUHk.png">Zelda NES</option>
-		<option value="http://i.imgur.com/b66Y95q.png">Zelda GBC</option>
-		<option value="http://www.vgmaps.com/Atlas/SuperNES/LegendOfZelda-ALinkToThePast-LightWorld.png">Zelda SNES (LW)</option>
-		<option value="http://www.vgmaps.com/Atlas/SuperNES/LegendOfZelda-ALinkToThePast-DarkWorld.png">Zelda SNES (DW)</option>
-	</select></legend>
-	<select name="size" title="Titles size"><option>8</option><option selected>16</option><option>32</option></select>
-	<input name="file" type="file" accept="image/*" title="Image file" required/>
-</form>
+<div class="view_container"><canvas id="view"></canvas></div>
 
-<form onsubmit="var e=this.elements;try{
-	var f={};[].slice.call(e.files.files).forEach(function(file){
-		f[(file.name.match(/\w+$/)||['_'])[0]]=file;
-	});P.fromFiles(f.json,f.map,f.ttl,P.showTitles);
-	}catch(e){console.error(e)};return false;">
-	<legend><input type="submit" value="Load"/> from files [.map+.ttl+.json]</legend>
-	<input name="files" accept="*.map;*.ttl;*.json" type="file" multiple required/>
-</form>
+<aside class="guiMenu files">
+	<form onsubmit="var e=this.elements;P.fromImageFile(+e.size.value,e.file.files[0],P.showTitles);
+		this.parentElement.classList.add('autohide');return false;">
+		<h1>Import map dump</h1>
+		<select name="size" title="Titles size"><option>8</option><option selected>16</option><option>32</option></select>
+		<input name="file" type="file" accept="image/*" title="Image file" required/>
+		<input type="submit"/>
+	</form>
 
-<form onsubmit="var e=this.elements;try{
-	P.toHref($('[name=title]',this),$('[name=map]',this),$('[name=info]',this));
-	}catch(e){console.error(e)}return false;">
-	<legend><input type="submit" value="Save"/> to files</legend>
-	<a name="title" download="a.ttl">titles</a>
-	<a name="map" download="a.map">map</a>
-	<a name="info" download="a.json">info</a>
-</form>
+	<form onsubmit="var e=this.elements,f={};
+		[].slice.call(e.files.files).forEach(function(file){f[(file.name.match(/\w+$/)||['_'])[0]]=file;});
+		P.fromFiles(f.json,f.map,f.ttl,P.showTitles);this.parentElement.classList.add('autohide');return false;">
+		<h1>Open project</h1>
+		<input name="files" accept=".map;.ttl;.json" type="file" multiple required/>
+		<input type="submit"/>
+	</form>
+
+	<form onsubmit="P.toHref($('[name=title]',this),$('[name=map]',this),$('[name=info]',this));return false;">
+		<h1>Save project</h1>
+		<a name="title" download="a.ttl">titles</a>
+		<a name="map" download="a.map">map</a>
+		<a name="info" download="a.json">info</a>
+		<input type="submit"/>
+	</form>
 </aside>
-<div class="map_container">
-	<canvas id="view"></canvas>
-</div>
 
-<div class="hud">
-	<div class="titles_container"><span id="titles"/></div>
-</div>
+<div class="guiMenu titles"><span id="titles"></span></div>
 
 </body>
 </html>
