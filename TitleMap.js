@@ -51,7 +51,8 @@ TitleMap.prototype.fromImageFile=function(size,img_f,cb){
 	reader.onload=function(){//file loaded
 		var img=new Image();
 		img.onload=function(){//image decoded
-			self.fromImageData(size,this,cb)
+			self.fromImageData(size,this)
+			if(cb)cb.call(self);
 		}
 		img.src=this.result;
 	}
@@ -68,8 +69,7 @@ TitleMap.prototype.fromImageData=function(size,img_d,cb){
 		for(var x=0;x<this.view.width;x+=size)
 			tmp.push(this.view_ctx.getImageData(x,y,size,size));
 			
-	this.view2TitlesMap(tmp,true);//remove duplicate titles
-	if(cb)cb.call(this);
+	this.view2TitlesMap(tmp,false);//remove duplicate titles
 }
 TitleMap.prototype.fromFiles=function(info_f,map_f,ttl_f,cb){
 	var self=this;
@@ -107,6 +107,7 @@ TitleMap.prototype.toHref=function(ttl_a,map_a,info_a){
 		if(arguments[i].constructor==HTMLAnchorElement && arguments[i].hasAttribute('href'))
 			URL.revokeObjectURL(arguments[i].href),
 			arguments[i].removeAttribute('href');
+	if(!this.map||!this.map.length)return;
 	//titles
 	var cnv=document.createElement('canvas')
 	cnv.width=this.size

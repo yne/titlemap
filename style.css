@@ -2,6 +2,7 @@
 .guiMenu{background: rgba(0,0,0,.8);color:#FFF;position: fixed;}
 
 .titles{top:0;bottom:0;line-height:0;width:256px;overflow:hidden;resize:horizontal;right:99%;}
+.titles select{width:33%;}
 .titles:hover{left:0;right:auto;overflow:auto;}
 
 .files{top:initial;bottom:98%;left:50%;padding:5px;}
