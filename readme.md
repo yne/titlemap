@@ -1,6 +1,8 @@
+Web equivalent to the powerful GBA Graphics Editor
+
 Convert map dump into a index list and a set of Titles :
 
-![Building process](https://raw.githubusercontent.com/yne/titlemap/gh-pages/process.svg)
+![Building process](https://raw.githubusercontent.com/yne/titlemap/gh-pages/doc/process.svg)
 
 - [Zelda NES](http://i.imgur.com/3qppUHk.png)
 - [Zelda GBC](http://i.imgur.com/b66Y95q.png)
